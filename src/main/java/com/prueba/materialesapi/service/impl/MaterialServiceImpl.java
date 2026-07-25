@@ -172,8 +172,6 @@ public class MaterialServiceImpl implements MaterialService {
 
         validarFechas(request);
 
-        validarMaterialDuplicado(request.getNombre(), request.getDescripcion(), id);
-
         Material material = materialRepository.findById(id)
                 .orElseThrow(() ->
                         new MaterialNotFoundException(Constants.MATERIAL_NO_ENCONTRADO + " con id: " + id ));

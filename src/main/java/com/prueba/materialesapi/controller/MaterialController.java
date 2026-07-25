@@ -36,7 +36,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MaterialController {
 
-
     private final MaterialService materialService;
 
     /**
@@ -67,10 +66,7 @@ public class MaterialController {
     public ResponseEntity<ApiResponseDTO<MaterialResponse>> guardar(
             @Valid @RequestBody MaterialRequest request) {
 
-
-        MaterialResponse material =
-                materialService.guardar(request);
-
+        MaterialResponse material = materialService.guardar(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(
@@ -129,7 +125,7 @@ public class MaterialController {
      * @throws MaterialNotFoundException cuando no existen materiales
      *         registrados con el tipo solicitado
      */
-    @Operation(summary = "Consulta materiales por tipo", description = "Permite buscar todos los materiales por tipo")
+    @Operation(summary = "Consulta materiales por tipo", description = "Permite buscar todos los materiales por tipo, ejemplo: Tecnologico, Hogar, etc")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Tipo de material encontrados correctamente" ),
             @ApiResponse(responseCode = "404", description = "No se encontraron resultados"),
@@ -139,10 +135,7 @@ public class MaterialController {
     public ResponseEntity<ApiResponseDTO<List<MaterialResponse>>> buscarPorTipo(
             @PathVariable String tipo) {
 
-
-        List<MaterialResponse> materiales =
-                materialService.buscarPorTipo(tipo);
-
+        List<MaterialResponse> materiales = materialService.buscarPorTipo(tipo);
 
         return ResponseEntity.ok(
                 ApiResponseDTO.<List<MaterialResponse>>builder()
@@ -167,7 +160,7 @@ public class MaterialController {
      * @throws MaterialNotFoundException cuando no existen materiales
      *         asociados a la fecha enviada
      */
-    @Operation(summary = "Consulta material por fecha de compra", description = "Permite buscar materiales por fecha de compra")
+    @Operation(summary = "Consulta material por fecha de compra", description = "Permite buscar materiales por fecha de compra, formato: yyyy-MM-dd")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Materiales encontrados correctamente" ),
             @ApiResponse(responseCode = "404", description = "No se encontraron resultados"),
@@ -177,10 +170,7 @@ public class MaterialController {
     public ResponseEntity<ApiResponseDTO<List<MaterialResponse>>> buscarPorFechaCompra(
             @PathVariable LocalDate fecha) {
 
-
-        List<MaterialResponse> materiales =
-                materialService.buscarPorFechaCompra(fecha);
-
+        List<MaterialResponse> materiales = materialService.buscarPorFechaCompra(fecha);
 
         return ResponseEntity.ok(
                 ApiResponseDTO.<List<MaterialResponse>>builder()
@@ -206,7 +196,7 @@ public class MaterialController {
      * @throws MaterialNotFoundException cuando no existen materiales
      *         asociados a la ciudad indicada
      */
-    @Operation(summary = "Consulta material por ciudad", description = "Permite buscar materiales por ciudad")
+    @Operation(summary = "Consulta material por ciudad", description = "Permite buscar materiales por el id de la ciudad. por ejemplo: 1")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Materiales encontrados correctamente" ),
             @ApiResponse(responseCode = "404", description = "No se encontraron resultados"),
@@ -216,10 +206,7 @@ public class MaterialController {
     public ResponseEntity<ApiResponseDTO<List<MaterialResponse>>> buscarPorCiudad(
             @PathVariable Long ciudadId) {
 
-
-        List<MaterialResponse> materiales =
-                materialService.buscarPorCiudad(ciudadId);
-
+        List<MaterialResponse> materiales = materialService.buscarPorCiudad(ciudadId);
 
         return ResponseEntity.ok(
                 ApiResponseDTO.<List<MaterialResponse>>builder()
@@ -248,20 +235,18 @@ public class MaterialController {
      * @throws MaterialAlreadyExistsException cuando existe otro material
      *         con el mismo nombre y descripción
      */
-    @Operation(summary = "Actualizar un material", description = "Permite actualizar un material")
+    @Operation(summary = "Actualizar un material", description = "Permite actualizar un material, debes ingresar el id del material mas la nueva informacion")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Material actualizado correctamente" ),
             @ApiResponse(responseCode = "400", description = "Datos inválidos enviados"),
             @ApiResponse(responseCode = "500", description = "Error interno en servidor")})
+
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponseDTO<MaterialResponse>> actualizar(
             @PathVariable Long id,
             @Valid @RequestBody MaterialRequest request) {
 
-
-        MaterialResponse material =
-                materialService.actualizar(id, request);
-
+        MaterialResponse material = materialService.actualizar(id, request);
 
         return ResponseEntity.ok(
                 ApiResponseDTO.<MaterialResponse>builder()
