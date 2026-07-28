@@ -178,7 +178,7 @@ public class MaterialServiceImpl implements MaterialService {
 
         Ciudad ciudad = ciudadRepository.findById(request.getCiudadId())
                 .orElseThrow(() ->
-                        new CiudadNotFoundException(Constants.CIUDAD_NO_ENCONTRADA + " con id: " + id ));
+                        new CiudadNotFoundException(Constants.CIUDAD_NO_ENCONTRADA + " con id: " + request.getCiudadId() ));
 
 
         material.setNombre(request.getNombre());
@@ -190,6 +190,7 @@ public class MaterialServiceImpl implements MaterialService {
         material.setEstado(request.getEstado());
         material.setCiudad(ciudad);
 
+        validarMaterialDuplicado(request.getNombre(), request.getDescripcion(),id);
 
         Material actualizado = materialRepository.save(material);
 
