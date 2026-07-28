@@ -19,7 +19,20 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
-
+/**
+ * Configuración de seguridad de la aplicación.
+ *
+ * <p>
+ * Define la configuración de Spring Security para la autenticación
+ * mediante JWT, el manejo de CORS, la política de sesiones,
+ * el proveedor de autenticación y el codificador de contraseñas.
+ * También especifica los endpoints públicos y protegidos
+ * de la API.
+ * </p>
+ *
+ * @author Johaymen Alvarez Romero
+ * @since 1.0
+ */
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
@@ -29,7 +42,21 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-
+    /**
+     * Configura la cadena de filtros de Spring Security.
+     *
+     * <p>
+     * Deshabilita CSRF, habilita CORS, configura la aplicación
+     * para trabajar sin sesiones (STATELESS), permite el acceso
+     * público a los endpoints de autenticación y documentación
+     * Swagger e incorpora el filtro JWT antes del filtro
+     * de autenticación por usuario y contraseña.
+     * </p>
+     *
+     * @param http configuración de seguridad HTTP.
+     * @return cadena de filtros de seguridad.
+     * @throws Exception si ocurre un error durante la configuración.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
@@ -69,7 +96,12 @@ public class SecurityConfig {
     }
 
 
-
+    /**
+     * Configura el proveedor de autenticación basado
+     * en la información de usuarios almacenada en la base de datos.
+     *
+     * @return proveedor de autenticación.
+     */
     @Bean
     public AuthenticationProvider authenticationProvider(){
 
@@ -84,7 +116,17 @@ public class SecurityConfig {
 
         return provider;
     }
-
+    /**
+     * Configura las políticas CORS de la aplicación.
+     *
+     * <p>
+     * Permite solicitudes desde el cliente Angular
+     * ejecutándose en localhost:4200, habilitando los
+     * métodos HTTP utilizados por la API.
+     * </p>
+     *
+     * @return configuración CORS.
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
@@ -124,6 +166,12 @@ public class SecurityConfig {
         return source;
     }
 
+    /**
+     * Crea el codificador de contraseñas utilizado
+     * por Spring Security.
+     *
+     * @return instancia de BCryptPasswordEncoder.
+     */
     @Bean
     public PasswordEncoder passwordEncoder(){
 
@@ -131,8 +179,13 @@ public class SecurityConfig {
 
     }
 
-
-
+    /**
+     * Obtiene el administrador de autenticación de Spring Security.
+     *
+     * @param configuration configuración de autenticación.
+     * @return administrador de autenticación.
+     * @throws Exception si ocurre un error al obtener el administrador.
+     */
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration

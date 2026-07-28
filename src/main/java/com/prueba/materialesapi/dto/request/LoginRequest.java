@@ -3,6 +3,19 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * DTO utilizado para recibir las credenciales de autenticación
+ * enviadas por el cliente.
+ *
+ * <p>
+ * Contiene el nombre de usuario y la contraseña requeridos para
+ * iniciar sesión en la aplicación. La información recibida es
+ * validada antes de ser procesada por el servicio de autenticación.
+ * </p>
+ *
+ * @author Johaymen Álvarez Romero
+ * @since 1.0
+ */
 @Data
 public class LoginRequest {
 
